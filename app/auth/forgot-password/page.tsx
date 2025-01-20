@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import DotPattern from "@/components/ui/dot-pattern";
 import Image from "next/image";
+import InteractiveGrid from "@/components/ui/interactive-grid";
 
 export default function ForgotPassword() {
   const [bscid, setBscid] = useState("");
@@ -42,18 +42,19 @@ export default function ForgotPassword() {
           />
           <h1 className="text-xl lg:text-4xl font-bold">MTA Intern Portal</h1>
           <p className="text-sm lg:text-lg mt-1 lg:mt-2 max-w-md text-center">
-            Welcome to the Metropolitan Transportation Authority Intern Portal. Track your hours, manage requests, and stay connected.
+            Welcome to the Metropolitan Transportation Authority Intern Portal.
+            Track your hours, manage requests, and stay connected.
           </p>
         </div>
       </aside>
 
       <main className="relative flex items-center justify-center bg-gradient-to-r from-black/[95%] via-black via-[2%] to-[#00031f] px-8 py-8 sm:px-12 lg:col-span-6 lg:px-16 lg:py-12">
-        <DotPattern className="absolute inset-0 z-10" width={50} height={50} cx={2} cy={2} cr={1} />
+        <InteractiveGrid className="absolute inset-0 z-10" />
         <div className="relative z-20 max-w-2xl w-full bg-[#060036]/20 border-4 border-[#0039a6]/30 text-white p-12 rounded-lg shadow-md">
           <h2 className="text-3xl font-bold mb-6">Forgot Password</h2>
           <form onSubmit={handleReset} className="space-y-6">
             <div>
-              <label htmlFor="bscid" className="block text-sm font-medium">
+              <label htmlFor="bscid" className="block text-sm font-medium mb-2">
                 BSC ID
               </label>
               <input

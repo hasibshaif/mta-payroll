@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import ShiningButton from "@/components/ShiningButton";
-import DotPattern from "@/components/ui/dot-pattern";
 import { CircleAlert } from "lucide-react";
 import Image from "next/image";
 import InteractiveGrid from "@/components/ui/interactive-grid";
@@ -60,12 +59,12 @@ export default function Login() {
       </aside>
 
       <main className="relative flex items-center justify-center bg-gradient-to-r from-black/[95%] via-black via-[2%] to-[#00031f] px-8 py-8 sm:px-12 lg:col-span-6 lg:px-16 lg:py-12">
-        <InteractiveGrid className="absolute inset-0 z-10" width={50} height={50} cx={2} cy={2} cr={1} />
+        <InteractiveGrid className="absolute inset-0 z-10" />
         <div className="relative z-20 max-w-2xl w-full bg-black/50 border-4 border-[#0039a6]/30 text-white p-12 rounded-lg shadow-md">
           <h2 className="text-3xl font-bold mb-6">Login</h2>
           <form onSubmit={handleLogin} className="space-y-6">
             <div>
-              <label htmlFor="bscid" className="block text-sm font-medium">
+              <label htmlFor="bscid" className="block text-sm font-medium mb-2">
                 BSC ID
               </label>
               <input
@@ -78,7 +77,7 @@ export default function Login() {
               />
             </div>
             <div>
-              <label htmlFor="password" className="block text-sm font-medium">
+              <label htmlFor="password" className="block text-sm font-medium mb-2">
                 Password
               </label>
               <input
