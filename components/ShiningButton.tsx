@@ -6,7 +6,7 @@ export default function ShiningButton({
   className = "",
 }: {
   children: React.ReactNode;
-  onClick?: () => void;
+  onClick?: (e: React.FormEvent) => void;
   className?: string;
 }) {
   return (
