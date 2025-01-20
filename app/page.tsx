@@ -19,10 +19,10 @@ export default function Home() {
       <div
         className="absolute inset-0 z-0"
         style={{
-          backgroundImage: "url(/images/background_image_1.jpg)",
+          backgroundImage: "url(/images/background_image_4.jpg)",
           backgroundSize: "cover",
           backgroundPosition: "center",
-          filter: "blur(0px)",
+          filter: "blur(3px)",
         }}
       ></div>
 
