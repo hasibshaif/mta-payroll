@@ -1,12 +1,15 @@
 "use client";
 
+import { useState } from "react";
 import ShiningButton from '@/components/ShiningButton';
 import Head from 'next/head';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import { Menu } from 'lucide-react';
 
 export default function Home() {
   const router = useRouter();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -34,14 +37,29 @@ export default function Home() {
             <Image src="/logos/mta-logo-blue.svg" alt="MTA Logo" width={64} height={64} />
             <h1 className="text-lg font-semibold">MTA Intern Portal</h1>
           </div>
-          <nav className="space-x-6">
-            <a href="https://new.mta.info/about" className="hover:underline">
-              About
-            </a>
-            <a href="https://new.mta.info/contact-us" className="hover:underline">
-              Contact Us
-            </a>
-          </nav>
+          <div className="relative">
+            {/* Hamburger Menu for Mobile */}
+            <button
+              className="lg:hidden focus:outline-none"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+            >
+              <Menu className="w-6 h-6" />
+            </button>
+
+            {/* Navigation Links */}
+            <nav
+              className={`${
+                isMenuOpen ? "block" : "hidden"
+              } absolute right-0 mt-2 w-40 bg-white text-black shadow-lg rounded-lg lg:flex lg:static lg:bg-transparent lg:text-white lg:shadow-none lg:w-auto lg:space-x-6`}
+            >
+              <a href="https://new.mta.info/about" className="block px-4 py-2 lg:inline hover:underline">
+                About
+              </a>
+              <a href="https://new.mta.info/contact-us" className="block px-4 py-2 lg:inline hover:underline">
+                Contact Us
+              </a>
+            </nav>
+          </div>
         </header>
 
         {/* Hero Section */}
