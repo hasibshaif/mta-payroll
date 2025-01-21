@@ -1,28 +1,37 @@
 "use client";
 
 import { useState } from "react";
+import { db } from '@/firebase';
+import { collection, addDoc } from "firebase/firestore";
+import { addHours } from 'date-fns';
+import { useRouter } from "next/navigation";
 
 export default function AdjustmentRequest({
-  adjustmentDates,
-  bscid,
+  bscid
 }: {
-  adjustmentDates: string[]; // Dates needing adjustment
   bscid: string; // Intern BSCID
 }) {
+  const router = useRouter();
   const [selectedDate, setSelectedDate] = useState("");
   const [hours, setHours] = useState("");
   const [reason, setReason] = useState("");
 
-  const handleRequestSubmit = (e: React.FormEvent) => {
+  const handleRequestSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    // You can replace this with a call to an API for submission
-    console.log({
-      bscid,
-      date: selectedDate,
-      hours,
-      reason,
-    });
+    try {
+      const docRef = await addDoc(collection(db, "adjustments"), {
+        bscid: bscid,
+        date: addHours(new Date(selectedDate), 5), // EST
+        hours: hours,
+        justification: reason,
+        pending: true,
+        approved: false
+      });
+      console.log("Document written with ID: ", docRef.id);
+    } catch (e) {
+      console.error("Error adding document: ", e);
+    }
+    router.push('/intern/dashboard');
   };
 
   return (
@@ -33,19 +42,13 @@ export default function AdjustmentRequest({
           <label htmlFor="date" className="block text-sm font-medium">
             Date
           </label>
-          <select
+          <input
             id="date"
+            type="date"
             value={selectedDate}
             onChange={(e) => setSelectedDate(e.target.value)}
             className="w-full text-black px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-          >
-            <option value="">Select a date</option>
-            {adjustmentDates.map((date) => (
-              <option key={date} value={date}>
-                {date}
-              </option>
-            ))}
-          </select>
+          ></input>
         </div>
 
         <div>

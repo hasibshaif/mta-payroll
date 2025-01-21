@@ -113,18 +113,10 @@ export default function InternDashboard() {
             <div>
             <ShiningButton
               onClick={() => {
-                const adjustmentDates = JSON.stringify(
-                  payPeriodData
-                    .filter((row) => row.adjustment === "Yes") // Only rows needing adjustments
-                    .map((row) => row.date) // Extract the dates
-                );
-
                 const queryString = new URLSearchParams({
-                  adjustmentDates,
                   bscid: "1234567", // Pass the BSCID
                 }).toString();
-
-                router.push(`/intern/adjustmentRequest?${queryString}`);
+                router.push(`/intern/adjustment-request?${queryString}`);
               }}
             >
               Request Adjustments
@@ -136,7 +128,7 @@ export default function InternDashboard() {
           </div>
         </div>
 
-        <table className="w-full table-auto text-center border-collapse border border-[#0056fa] border-4 shadow-lg p-6">
+        <table className="w-full table-auto text-center border-collapse border-[#0056fa] border-4 shadow-lg p-6">
           <thead>
             <tr className="bg-[#0039a6] text-white">
               <th className="border border-gray-300 px-4 py-2">Date</th>
