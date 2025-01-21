@@ -157,7 +157,7 @@ export default function InternDashboard() {
             ))}
         </tbody>
         </table>
-        <button onClick={() => router.push('/intern/adjustmentRequest')}/>
+        <button onClick={() => router.push('/auth/login')}/>
         </div>
     </div>
   );
