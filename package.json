@@ -13,6 +13,8 @@
     "@tabler/icons-react": "^3.28.1",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "date-fns": "^4.1.0",
+    "formidable": "^3.5.2",
     "framer-motion": "^11.18.1",
     "lib-utils-ts": "^0.0.0-test",
     "lucide-react": "^0.473.0",
@@ -25,6 +27,7 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@types/formidable": "^3.4.5",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",

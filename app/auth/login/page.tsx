@@ -3,13 +3,19 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import ShiningButton from "@/components/ShiningButton";
+import InteractiveGrid from "@/components/ui/interactive-grid";
 import { CircleAlert } from "lucide-react";
 import Image from "next/image";
-import InteractiveGrid from "@/components/ui/interactive-grid";
 
-const DUMMY_CREDENTIALS = {
-  bscid: "1234567",
-  password: "password123",
+const DUMMY_USERS = {
+  intern: {
+    bscid: "1234567",
+    password: "password123",
+  },
+  manager: {
+    bscid: "7654321",
+    password: "password123",
+  },
 };
 
 export default function Login() {
@@ -21,8 +27,10 @@ export default function Login() {
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (bscid === DUMMY_CREDENTIALS.bscid && password === DUMMY_CREDENTIALS.password) {
-      router.push("/dashboard");
+    if (bscid === DUMMY_USERS.intern.bscid && password === DUMMY_USERS.intern.password) {
+      router.push("/intern/dashboard");
+    } else if (bscid === DUMMY_USERS.manager.bscid && password === DUMMY_USERS.manager.password) {
+      router.push("/manager/dashboard");
     } else {
       setError("Invalid BSC ID or password.");
     }
@@ -51,7 +59,7 @@ export default function Login() {
             height={80}
             className="mb-2 lg:mb-4"
           />
-          <h1 className="text-xl lg:text-4xl font-bold">MTA Intern Portal</h1>
+          <h1 className="text-xl lg:text-4xl font-bold">Intern Portal</h1>
           <p className="text-sm lg:text-lg mt-1 lg:mt-2 max-w-md text-center">
             Welcome to the Metropolitan Transportation Authority Intern Portal. Track your hours, manage requests, and stay connected.
           </p>
@@ -60,11 +68,11 @@ export default function Login() {
 
       <main className="relative flex items-center justify-center bg-gradient-to-r from-black/[95%] via-black via-[2%] to-[#00031f] px-8 py-8 sm:px-12 lg:col-span-6 lg:px-16 lg:py-12">
         <InteractiveGrid className="absolute inset-0 z-10" />
-        <div className="relative z-20 max-w-2xl w-full bg-black/50 border-4 border-[#0039a6]/30 text-white p-12 rounded-lg shadow-md">
+        <div className="relative z-20 max-w-2xl w-full bg-black/50 border-4 border-[#0039a6] text-white p-12 rounded-lg shadow-md">
           <h2 className="text-3xl font-bold mb-6">Login</h2>
           <form onSubmit={handleLogin} className="space-y-6">
             <div>
-              <label htmlFor="bscid" className="block text-sm font-medium mb-2">
+              <label htmlFor="bscid" className="block text-sm font-medium">
                 BSC ID
               </label>
               <input
@@ -77,7 +85,7 @@ export default function Login() {
               />
             </div>
             <div>
-              <label htmlFor="password" className="block text-sm font-medium mb-2">
+              <label htmlFor="password" className="block text-sm font-medium">
                 Password
               </label>
               <input
