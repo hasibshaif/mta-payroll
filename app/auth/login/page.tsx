@@ -50,8 +50,9 @@ export default function Login() {
             filter: "blur(5px)",
           }}
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-transparent to-black/[95%]"></div>
-        <div className="absolute inset-0 flex flex-col items-center justify-center bg-gradient-to-r from-black/50 to-transparent text-white">
+        {/* Responsive Gradient */}
+        <div className="absolute inset-0 bg-gradient-to-b lg:bg-gradient-to-r from-black/50 via-transparent to-black/[95%]"></div>
+        <div className="absolute inset-0 flex flex-col items-center justify-center bg-gradient-to-b lg:bg-gradient-to-r from-black/50 to-transparent text-white">
           <Image
             src="/logos/mta-logo-blue.svg"
             alt="MTA Logo"
@@ -66,7 +67,7 @@ export default function Login() {
         </div>
       </aside>
 
-      <main className="relative flex items-center justify-center bg-gradient-to-r from-black/[95%] via-black via-[2%] to-[#00031f] px-8 py-8 sm:px-12 lg:col-span-6 lg:px-16 lg:py-12 min-h-screen">
+      <main className="relative flex items-center justify-center bg-gradient-to-b lg:bg-gradient-to-r from-black/[95%] via-black via-[2%] to-[#00031f] px-8 py-8 sm:px-12 lg:col-span-6 lg:px-16 lg:py-12 min-h-screen">
         <InteractiveGrid className="absolute inset-0 z-10" />
         <div className="relative z-20 max-w-2xl w-full bg-black/50 border-4 border-[#0039a6] text-white p-12 rounded-lg shadow-md">
           <h2 className="text-3xl font-bold mb-6">Login</h2>
