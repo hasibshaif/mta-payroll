@@ -108,8 +108,8 @@ export default function Login() {
               Login
             </ShiningButton>
           </form>
-          <div className="mt-6 text-sm text-gray-600">
-            <a href="/auth/forgot-password" className="text-blue-600 hover:underline">
+          <div className="mt-6 flex justify-center font-bold text-sm">
+            <a href="/auth/forgot-password" className="text-blue-400 hover:underline hover:text-blue-600">
               Forgot your password?
             </a>
           </div>

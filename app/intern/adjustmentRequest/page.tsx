@@ -1,11 +1,17 @@
-export default function AdjustmentRequest() {
-    return (
-        <div>
-            <form>
-                <input placeholder="Date that intern wants to submit request for"/>
-                <input placeholder="Number of hours they are claiming they worked" />
-                <input placeholder="Reason for adjustment" />
-            </form>
-        </div>
-    );
+"use client";
+
+import { useSearchParams } from "next/navigation";
+import AdjustmentRequest from "@/components/AdjustmentRequest";
+
+export default function AdjustmentRequestPage() {
+  const searchParams = useSearchParams();
+  const adjustmentDates = JSON.parse(searchParams.get("adjustmentDates") || "[]"); // Parse adjustment dates
+  const bscid = searchParams.get("bscid") || ""; // Get BSCID
+
+  return (
+    <AdjustmentRequest
+      adjustmentDates={adjustmentDates}
+      bscid={bscid}
+    />
+  );
 }
