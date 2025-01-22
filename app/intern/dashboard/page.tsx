@@ -8,6 +8,14 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useRouter } from "next/navigation";
 import ShiningButton from "@/components/ShiningButton";
 
+interface TimeEntry {
+  date: string;
+  in: string;
+  out: string;
+  adjustment: string;
+  hours: number;
+}
+
 const calculateHours = (inTime: string, outTime: string) => {
   if (!inTime || !outTime) return 0;
 
@@ -32,7 +40,7 @@ const getBiweeklyDates = (startDate: Date) => {
   return dates;
 };
 
-const populateDummyData = (dates: Date[], isCurrentPeriod: boolean) => {
+const populateDummyData = (dates: Date[], isCurrentPeriod: boolean): TimeEntry[] => {
   const lastPayPeriodData = [
     { in: "8:57 AM", out: "5:03 PM", adjustment: "No" },
     { in: "9:12 AM", out: "5:17 PM", adjustment: "No" },
@@ -73,7 +81,7 @@ const populateDummyData = (dates: Date[], isCurrentPeriod: boolean) => {
   }));
 };
 
-const getPayPeriodData = (currentDate: Date, offset: number) => {
+const getPayPeriodData = (currentDate: Date, offset: number): TimeEntry[] => {
   const startOfCurrentPayPeriod = getStartOfPayPeriod(currentDate);
   const startOfTargetPayPeriod = addDays(startOfCurrentPayPeriod, offset * 14);
   const dates = getBiweeklyDates(startOfTargetPayPeriod);
@@ -84,6 +92,7 @@ const getPayPeriodData = (currentDate: Date, offset: number) => {
 export default function InternDashboard() {
   const router = useRouter();
   const [offset, setOffset] = useState(0);
+  const BSCID = "1234567"; // You might want to make this dynamic later
 
   const currentDate = new Date();
   const payPeriodData = getPayPeriodData(currentDate, offset);
@@ -92,6 +101,24 @@ export default function InternDashboard() {
 
   const handlePreviousPeriod = () => setOffset((prev) => prev - 1);
   const handleNextPeriod = () => setOffset((prev) => Math.min(prev + 1, 0));
+
+  const handleAdjustmentRequest = () => {
+    const adjustmentDates = payPeriodData
+      .filter(row => row.adjustment === "Yes")
+      .map(row => row.date);
+
+    if (adjustmentDates.length === 0) {
+      alert("No dates require adjustment in this pay period.");
+      return;
+    }
+
+    const queryParams = new URLSearchParams({
+      adjustmentDates: JSON.stringify(adjustmentDates),
+      bscid: BSCID
+    });
+
+    router.push(`/adjustment-request?${queryParams.toString()}`);
+  };
 
   return (
     <div>
@@ -111,28 +138,13 @@ export default function InternDashboard() {
               </AlgoliaWhiteButton>
             </div>
             <div>
-            <ShiningButton
-              onClick={() => {
-                const adjustmentDates = JSON.stringify(
-                  payPeriodData
-                    .filter((row) => row.adjustment === "Yes") // Only rows needing adjustments
-                    .map((row) => row.date) // Extract the dates
-                );
-
-                const queryString = new URLSearchParams({
-                  adjustmentDates,
-                  bscid: "1234567", // Pass the BSCID
-                }).toString();
-
-                router.push(`/intern/adjustmentRequest?${queryString}`);
-              }}
-            >
-              Request Adjustments
-            </ShiningButton>
+              <ShiningButton onClick={handleAdjustmentRequest}>
+                Request Adjustments
+              </ShiningButton>
             </div>
           </div>
           <div className="font-bold mb-2 flex justify-start text-white">
-            BSCID: <span className="italic">1234567</span>
+            BSCID: <span className="italic">{BSCID}</span>
           </div>
         </div>
 
@@ -163,7 +175,6 @@ export default function InternDashboard() {
             ))}
           </tbody>
         </table>
-        <button onClick={() => router.push("/auth/login")} />
       </div>
     </div>
   );

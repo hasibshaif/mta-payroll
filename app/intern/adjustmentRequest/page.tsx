@@ -1,12 +1,22 @@
 "use client";
-
 import { useSearchParams } from "next/navigation";
 import AdjustmentRequest from "@/components/AdjustmentRequest";
 
 export default function AdjustmentRequestPage() {
   const searchParams = useSearchParams();
-  const adjustmentDates = JSON.parse(searchParams.get("adjustmentDates") || "[]"); // Parse adjustment dates
-  const bscid = searchParams.get("bscid") || ""; // Get BSCID
+  
+  // Add error handling for JSON parsing
+  let adjustmentDates: string[] = [];
+  try {
+    adjustmentDates = JSON.parse(searchParams.get("adjustmentDates") || "[]");
+  } catch (e) {
+    console.error("Error parsing adjustment dates:", e);
+  }
+  
+  const bscid = searchParams.get("bscid") || "";
+
+  // Debug log
+  console.log("Parsed dates:", adjustmentDates);
 
   return (
     <AdjustmentRequest
