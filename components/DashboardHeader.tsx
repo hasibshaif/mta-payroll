@@ -2,7 +2,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { Menu } from "lucide-react";
 
-export default function InternDashboardHeader() {
+export default function DashboardHeader({ heading }: { heading: string }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
@@ -14,7 +14,7 @@ export default function InternDashboardHeader() {
             width={56}
             height={56}
           />
-          <h1 className="text-lg font-semibold">Intern Portal</h1>
+          <h1 className="text-lg font-semibold">{heading}</h1>
         </div>
         <div className="relative">
           {/* Hamburger Menu for Mobile */}
@@ -44,7 +44,7 @@ export default function InternDashboardHeader() {
               Help
             </a>
             <a
-              href="/auth/logout"
+              href="/auth/login"
               className="block px-4 py-2 lg:inline hover:underline"
             >
               Logout

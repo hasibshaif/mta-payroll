@@ -1,4 +1,5 @@
 "use client";
+
 import { useSearchParams } from "next/navigation";
 import AdjustmentRequest from "@/components/AdjustmentRequest";
 
@@ -7,8 +8,6 @@ export default function AdjustmentRequestPage() {
   const bscid = searchParams.get("bscid") || ""; // Get BSCID
 
   return (
-    <AdjustmentRequest
-      bscid={bscid}
-    />
+    <AdjustmentRequest bscid={bscid} />
   );
 }
