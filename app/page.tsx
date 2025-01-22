@@ -1,21 +1,18 @@
 "use client";
 
-import { useState } from "react";
 import ShiningButton from '@/components/ShiningButton';
 import Head from 'next/head';
-import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { Menu } from 'lucide-react';
+import DashboardHeader from "@/components/DashboardHeader";
 
 export default function Home() {
   const router = useRouter();
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
     <div className="min-h-screen flex flex-col">
       <Head>
-        <title>MTA Employee Portal</title>
-        <meta name="description" content="MTA Payment Adjustment Request Portal for Employees" />
+        <title>MTA Intern Portal</title>
+        <meta name="description" content="MTA Payment Adjustment Request Portal for Interns" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
@@ -30,45 +27,21 @@ export default function Home() {
       ></div>
 
       {/* Overlay */}
-      <div className="relative z-10 min-h-screen flex flex-col bg-gray-100 bg-opacity-75">
-        {/* Header */}
-        <header className="bg-gradient-to-r from-[#0039a6] to-[#002366] text-white px-6 flex justify-between items-center">
-          <div className="flex items-center space-x-4">
-            <Image src="/logos/mta-logo-blue.svg" alt="MTA Logo" width={64} height={64} />
-            <h1 className="text-lg font-semibold">MTA Intern Portal</h1>
-          </div>
-          <div className="relative">
-            {/* Hamburger Menu for Mobile */}
-            <button
-              className="lg:hidden focus:outline-none"
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-            >
-              <Menu className="w-6 h-6" />
-            </button>
-
-            {/* Navigation Links */}
-            <nav
-              className={`${
-                isMenuOpen ? "block" : "hidden"
-              } absolute right-0 mt-2 w-40 bg-white text-black shadow-lg rounded-lg lg:flex lg:static lg:bg-transparent lg:text-white lg:shadow-none lg:w-auto lg:space-x-6`}
-            >
-              <a href="https://new.mta.info/about" className="block px-4 py-2 lg:inline hover:underline">
-                About
-              </a>
-              <a href="https://new.mta.info/contact-us" className="block px-4 py-2 lg:inline hover:underline">
-                Contact Us
-              </a>
-            </nav>
-          </div>
-        </header>
-
+      <div className="relative z-10 min-h-screen flex flex-col bg-gray-100 bg-opacity-60">
+      <DashboardHeader
+          heading="Intern Portal"
+          links={[
+            { href: "https://new.mta.info/about", label: "About" },
+            { href: "https://new.mta.info/contact-us", label: "Contact Us" },
+          ]}
+        />
         {/* Hero Section */}
         <main className="flex-grow flex flex-col items-center justify-center text-center px-4">
-          <div className="max-w-4xl">
-            <h2 className="text-4xl font-bold text-blue-900 mb-4">
+          <div className="max-w-6xl">
+            <h2 className="text-5xl font-bold text-blue-900 mb-4 drop-shadow-xl">
               Welcome to the MTA Intern Portal
             </h2>
-            <p className="text-lg text-gray-700 mb-6">Track your hours and submit adjustment requests</p>
+            <p className="text-2xl text-black mb-6 drop-shadow-xl">Track your hours and submit adjustment requests</p>
             <div className="flex justify-center space-x-4">
               <ShiningButton onClick={() => router.push('/auth/login')}>Get Started</ShiningButton>
             </div>

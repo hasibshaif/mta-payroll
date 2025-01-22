@@ -21,19 +21,19 @@ export default function AdjustmentRequest({
   const handleRequestSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const docRef = await addDoc(collection(db, "adjustments"), {
+      await addDoc(collection(db, "adjustments"), {
         bscid: bscid,
-        date: Timestamp.fromDate(new Date(selectedDate)), // Convert to Firestore Timestamp
-        hours: parseFloat(hours), // Ensure hours is stored as a number
+        date: Timestamp.fromDate(new Date(selectedDate)),
+        hours: parseFloat(hours),
         justification: reason,
         pending: true,
         approved: false,
+        managerFeedback: "",
       });
-      console.log("Document written with ID: ", docRef.id);
+      router.push('/intern/dashboard');
     } catch (e) {
       console.error("Error adding document: ", e);
     }
-    router.push('/intern/dashboard');
   };
 
   return (
