@@ -102,6 +102,7 @@ export default function InternDashboard() {
   const handlePreviousPeriod = () => setOffset((prev) => prev - 1);
   const handleNextPeriod = () => setOffset((prev) => Math.min(prev + 1, 0));
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const handleAdjustmentRequest = () => {
     const adjustmentDates = payPeriodData
       .filter(row => row.adjustment === "Yes")
@@ -138,9 +139,22 @@ export default function InternDashboard() {
               </AlgoliaWhiteButton>
             </div>
             <div>
-              <ShiningButton onClick={handleAdjustmentRequest}>
-                Request Adjustments
-              </ShiningButton>
+            <ShiningButton
+              onClick={() => {
+                const adjustmentDates = payPeriodData
+                  .filter(row => row.adjustment === "Yes")
+                  .map(row => row.date);
+
+                const queryParams = new URLSearchParams({
+                  adjustmentDates: JSON.stringify(adjustmentDates),
+                  bscid: BSCID,
+                });
+
+                router.push(`/intern/adjustment-request?${queryParams.toString()}`);
+              }}
+            >
+              Request Adjustments
+            </ShiningButton>
             </div>
           </div>
           <div className="font-bold mb-2 flex justify-start text-white">
@@ -148,7 +162,7 @@ export default function InternDashboard() {
           </div>
         </div>
 
-        <table className="w-full table-auto text-center border-collapse border border-[#0056fa] border-4 shadow-lg p-6">
+        <table className="w-full table-auto text-center border-collapse border-[#0056fa] border-4 shadow-lg p-6">
           <thead>
             <tr className="bg-[#0039a6] text-white">
               <th className="border border-gray-300 px-4 py-2">Date</th>

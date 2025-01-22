@@ -128,7 +128,7 @@ export default function ManagerDashboard() {
             </div>
         </div>
 
-        <table className="w-full table-auto text-center border-collapse border border-[#0039a6] border-4 shadow-lg p-6">
+        <table className="w-full table-auto text-center border-collapse border-[#0039a6] border-4 shadow-lg p-6">
         <thead>
             <tr className="bg-[#0039a6] text-white">
             <th className="border border-gray-300 px-4 py-2">Date</th>
