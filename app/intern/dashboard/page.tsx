@@ -11,6 +11,7 @@ import { useRouter } from "next/navigation";
 import ShiningButton from "@/components/ShiningButton";
 import { Timestamp } from 'firebase/firestore';
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 interface Adjustment {
   date: Timestamp;
   pending: boolean;
@@ -120,15 +121,15 @@ export default function InternDashboard() {
     const q = query(collection(db, "adjustments"), where("bscid", "==", BSCID));
     const unsubscribe = onSnapshot(q, (snapshot) => {
       const adjustments = snapshot.docs.map((doc) => {
-        const data = doc.data() as Adjustment;
+        const data = doc.data();
         return {
-          date: format(data.date.toDate(), "MMMM d, yyyy"),
+          date: data.date, // Use string directly
           pending: data.pending,
           approved: data.approved,
           hours: data.hours,
         };
       });
-
+  
       setPayPeriodData((prevData) =>
         prevData.map((entry) => {
           const matchingAdjustment = adjustments.find((adj) => adj.date === entry.date);
@@ -147,7 +148,7 @@ export default function InternDashboard() {
         })
       );
     });
-
+  
     return () => unsubscribe();
   }, []);
 
@@ -198,7 +199,7 @@ export default function InternDashboard() {
               <th className="border border-gray-300 px-4 py-2">Date</th>
               <th className="border border-gray-300 px-4 py-2">In</th>
               <th className="border border-gray-300 px-4 py-2">Out</th>
-              <th className="border border-gray-300 px-4 py-2">Adjustment</th>
+              <th className="border border-gray-300 px-4 py-2">Needs Adjustment?</th>
               <th className="border border-gray-300 px-4 py-2">Hours</th>
               <th className="border border-gray-300 px-4 py-2">Adjustment Request Status</th>
             </tr>

@@ -1,13 +1,12 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
-import AdjustmentRequest from "@/components/AdjustmentRequest";
+import { Suspense } from "react";
+import AdjustmentRequestWrapper from "@/components/AdjustmentRequestWrapper";
 
 export default function AdjustmentRequestPage() {
-  const searchParams = useSearchParams();
-  const bscid = searchParams.get("bscid") || ""; // Get BSCID
-
   return (
-    <AdjustmentRequest bscid={bscid} />
+    <Suspense fallback={<div>Loading...</div>}>
+      <AdjustmentRequestWrapper />
+    </Suspense>
   );
 }
