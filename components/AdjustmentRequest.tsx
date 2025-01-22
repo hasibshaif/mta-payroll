@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { db } from '@/firebase';
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, Timestamp } from "firebase/firestore";
 import { useRouter, useSearchParams } from "next/navigation";
 
 export default function AdjustmentRequest({
@@ -23,8 +23,8 @@ export default function AdjustmentRequest({
     try {
       const docRef = await addDoc(collection(db, "adjustments"), {
         bscid: bscid,
-        date: selectedDate,
-        hours: hours,
+        date: Timestamp.fromDate(new Date(selectedDate)), // Convert to Firestore Timestamp
+        hours: parseFloat(hours), // Ensure hours is stored as a number
         justification: reason,
         pending: true,
         approved: false,

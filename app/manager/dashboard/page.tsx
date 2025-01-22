@@ -20,7 +20,6 @@ interface Request {
 export default function ManagerDashboard() {
   const [requests, setRequests] = useState<Request[]>([]);
 
-  // Fetch data from Firestore
   useEffect(() => {
     const fetchRequests = async () => {
       const querySnapshot = await getDocs(collection(db, "adjustments"));
@@ -29,7 +28,9 @@ export default function ManagerDashboard() {
         return {
           id: doc.id,
           bscid: data.bscid,
-          date: format(data.date.toDate(), "MMMM d, yyyy"), // Convert Firestore timestamp to readable date
+          date: data.date?.toDate
+            ? format(data.date.toDate(), "MMMM d, yyyy") // Handle Firestore Timestamp
+            : data.date, // Fallback for string date
           hours: data.hours,
           justification: data.justification,
           approved: data.approved,
@@ -38,7 +39,7 @@ export default function ManagerDashboard() {
       });
       setRequests(requestsData);
     };
-
+  
     fetchRequests();
   }, []);
 
