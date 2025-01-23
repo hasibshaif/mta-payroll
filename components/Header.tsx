@@ -15,7 +15,7 @@ interface DashboardHeaderProps {
   links: Link[]; // Array of links
 }
 
-export default function DashboardHeader({ heading, links }: DashboardHeaderProps) {
+export default function Header({ heading, links }: DashboardHeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const router = useRouter();
 

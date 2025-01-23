@@ -5,7 +5,7 @@ import { db } from "@/firebase";
 import { collection, getDocs, updateDoc, doc } from "firebase/firestore";
 import { CircleCheck, CircleX, X, Check, MessageCircle } from "lucide-react";
 import { format } from "date-fns";
-import DashboardHeader from "@/components/DashboardHeader";
+import Header from "@/components/Header";
 
 interface Request {
   id: string;
@@ -98,12 +98,12 @@ export default function ManagerDashboard() {
 
   return (
     <div className="bg-gradient-to-br from-[#1c1d1f] to-[#101b30] text-white min-h-screen">
-      <DashboardHeader
+      <Header
         heading="Manager Dashboard"
         links={[
           { href: "/manager/profile", label: "Profile" },
           { href: "/manager/help", label: "Help" },
-          { href: "/auth/logout", label: "Logout" },
+          { href: "/auth/login", label: "Logout" },
         ]}
       />
       <div className="p-8">

@@ -77,3 +77,46 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+select {
+  appearance: none;
+  background-color: #1b2230;
+  color: #ffffff;
+  border: 1px solid #0039a6;
+  border-radius: 0.375rem; /* Rounded corners */
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+select:focus {
+  outline: none;
+  border-color: #004fff;
+  box-shadow: 0 0 0 2px rgba(0, 79, 255, 0.5);
+}
+
+select option {
+  background-color: #1b2230;
+  color: #ffffff;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #004fff;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #0039a6;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #1c1d1f;
+  border-radius: 4px;
+}

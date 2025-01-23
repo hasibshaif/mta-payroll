@@ -9,7 +9,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useRouter } from "next/navigation";
 import ShiningButton from "@/components/ShiningButton";
 import { Timestamp } from "firebase/firestore";
-import DashboardHeader from "@/components/DashboardHeader";
+import Header from "@/components/Header";
 import { Check, X, Clock, MessageCircle } from "lucide-react";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -181,7 +181,7 @@ export default function InternDashboard() {
 
   return (
     <div className="bg-gradient-to-br from-[#1c1d1f] to-[#101b30] text-white min-h-screen">
-      <DashboardHeader
+      <Header
         heading="Intern Dashboard"
         links={[
           { href: "/intern/profile", label: "Profile" },

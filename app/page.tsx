@@ -3,7 +3,7 @@
 import ShiningButton from '@/components/ShiningButton';
 import Head from 'next/head';
 import { useRouter } from 'next/navigation';
-import DashboardHeader from "@/components/DashboardHeader";
+import Header from "@/components/Header";
 
 export default function Home() {
   const router = useRouter();
@@ -28,7 +28,7 @@ export default function Home() {
 
       {/* Overlay */}
       <div className="relative z-10 min-h-screen flex flex-col bg-gray-100 bg-opacity-60">
-      <DashboardHeader
+      <Header
           heading="Intern Portal"
           links={[
             { href: "https://new.mta.info/about", label: "About" },
