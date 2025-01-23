@@ -4,6 +4,7 @@ import ShiningButton from '@/components/ShiningButton';
 import Head from 'next/head';
 import { useRouter } from 'next/navigation';
 import Header from "@/components/Header";
+import { FlipWords } from '@/components/ui/flip-words';
 
 export default function Home() {
   const router = useRouter();
@@ -28,7 +29,7 @@ export default function Home() {
 
       {/* Overlay */}
       <div className="relative z-10 min-h-screen flex flex-col bg-gray-100 bg-opacity-60">
-      <Header
+        <Header
           heading="Intern Portal"
           links={[
             { href: "https://new.mta.info/about", label: "About" },
@@ -41,7 +42,15 @@ export default function Home() {
             <h2 className="text-5xl font-bold text-blue-900 mb-4 drop-shadow-xl">
               Welcome to the MTA Intern Portal
             </h2>
-            <p className="text-2xl text-black mb-6 drop-shadow-xl">Track your hours and submit adjustment requests</p>
+            {/* FlipWords Component */}
+            <FlipWords
+              words={[
+                "Track your hours.",
+                "Manage adjustment requests.",
+                "Stay connected!",
+              ]}
+              duration={1200}
+            />
             <div className="flex justify-center space-x-4">
               <ShiningButton onClick={() => router.push('/auth/login')}>Get Started</ShiningButton>
             </div>
