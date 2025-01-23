@@ -51,8 +51,8 @@ const calculateHours = (inTime: string, outTime: string): number => {
 
 const getStartOfPayPeriod = (currentDate: Date): Date => {
   const dayOfWeek = currentDate.getDay();
-  const offset = dayOfWeek >= 4 ? dayOfWeek - 4 : dayOfWeek + 3;
-  return subDays(currentDate, offset);
+  const daysSinceSaturday = (dayOfWeek + 1) % 7;
+  return subDays(currentDate, daysSinceSaturday);
 };
 
 const getBiweeklyDates = (startDate: Date): Date[] => {
@@ -217,12 +217,12 @@ export default function InternDashboard() {
         <table className="w-full table-auto text-center border-collapse border-[#0039a6] shadow-lg">
           <thead>
             <tr className="bg-[#0039a6] text-white text-xl">
-              <th className="border border-gray-700 px-4 py-2">Date</th>
-              <th className="border border-gray-700 px-4 py-2">In</th>
-              <th className="border border-gray-700 px-4 py-2">Out</th>
-              <th className="border border-gray-700 px-4 py-2">Needs Adjustment?</th>
-              <th className="border border-gray-700 px-4 py-2">Hours</th>
-              <th className="border border-gray-700 px-4 py-2">Adjustment Request Status</th>
+              <th className="border-2 border-[#387cff] px-4 py-2">Date</th>
+              <th className="border-2 border-[#387cff] px-4 py-2">In</th>
+              <th className="border-2 border-[#387cff] px-4 py-2">Out</th>
+              <th className="border-2 border-[#387cff] px-4 py-2">Needs Adjustment?</th>
+              <th className="border-2 border-[#387cff] px-4 py-2">Hours</th>
+              <th className="border-2 border-[#387cff] px-4 py-2">Adjustment Request Status</th>
             </tr>
           </thead>
           <tbody>
@@ -233,12 +233,12 @@ export default function InternDashboard() {
                   index % 2 === 0 ? "bg-[#283245]" : "bg-[#1b2230]"
                 } hover:bg-[#2f4775]`}
               >
-                <td className="border border-[#0039a6] px-4 py-2 text-lg">{row.date}</td>
-                <td className="border border-[#0039a6] px-4 py-2 text-lg">{row.in}</td>
-                <td className="border border-[#0039a6] px-4 py-2 text-lg">{row.out}</td>
-                <td className="border border-[#0039a6] px-4 py-2 text-lg">{row.adjustment}</td>
-                <td className="border border-[#0039a6] px-4 py-2 text-lg">{row.hours}</td>
-                <td className="border border-[#0039a6] px-4 py-2">
+                <td className="border-2 border-[#387cff] px-4 py-2 text-lg">{row.date}</td>
+                <td className="border-2 border-[#387cff] px-4 py-2 text-lg">{row.in}</td>
+                <td className="border-2 border-[#387cff] px-4 py-2 text-lg">{row.out}</td>
+                <td className="border-2 border-[#387cff] px-4 py-2 text-lg">{row.adjustment}</td>
+                <td className="border-2 border-[#387cff] px-4 py-2 text-lg">{row.hours}</td>
+                <td className="border-2 border-[#387cff] px-4 py-2">
                   {row.status === "Pending" && (
                     <div className="flex justify-center items-center text-yellow-200 gap-2 text-lg" title="Pending">
                       <Clock className="h-6 w-6" />

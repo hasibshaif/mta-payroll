@@ -7,6 +7,7 @@ import { CircleCheck, CircleX, X, Check, MessageCircle } from "lucide-react";
 import { format } from "date-fns";
 import Header from "@/components/Header";
 import DownloadButton from "@/components/ui/download-button";
+import SubmitButton from "@/components/ui/submit-button";
 
 interface Request {
   id: string;
@@ -117,11 +118,11 @@ export default function ManagerDashboard() {
         <table className="w-full table-auto text-center border-collapse border-[#0039a6] shadow-lg">
           <thead>
             <tr className="bg-[#0039a6] text-white text-xl">
-              <th className="border border-gray-700 px-4 py-2">BSCID</th>
-              <th className="border border-gray-700 px-4 py-2">Date</th>
-              <th className="border border-gray-700 px-4 py-2">Hours</th>
-              <th className="border border-gray-700 px-4 py-2">Reason</th>
-              <th className="border border-gray-700 px-4 py-2">Approve/Deny</th>
+              <th className="border-2 border-[#387cff] px-4 py-2">BSCID</th>
+              <th className="border-2 border-[#387cff] px-4 py-2">Date</th>
+              <th className="border-2 border-[#387cff] px-4 py-2">Hours</th>
+              <th className="border-2 border-[#387cff] px-4 py-2">Reason</th>
+              <th className="border-2 border-[#387cff] px-4 py-2">Approve/Deny</th>
             </tr>
           </thead>
           <tbody>
@@ -132,11 +133,11 @@ export default function ManagerDashboard() {
                   index % 2 === 0 ? "bg-[#283245]" : "bg-[#1b2230]"
                 } hover:bg-[#2f4775]`}
               >
-                <td className="border border-[#0039a6] px-4 py-2 text-lg">{request.bscid}</td>
-                <td className="border border-[#0039a6] px-4 py-2 text-lg">{request.date}</td>
-                <td className="border border-[#0039a6] px-4 py-2 text-lg">{request.hours}</td>
-                <td className="border border-[#0039a6] px-4 py-2 text-lg">{request.justification}</td>
-                <td className="border border-[#0039a6] px-4 py-2">
+                <td className="border-2 border-[#387cff] px-4 py-2 text-lg">{request.bscid}</td>
+                <td className="border-2 border-[#387cff] px-4 py-2 text-lg">{request.date}</td>
+                <td className="border-2 border-[#387cff] px-4 py-2 text-lg">{request.hours}</td>
+                <td className="border-2 border-[#387cff] px-4 py-2 text-lg">{request.justification}</td>
+                <td className="border-2 border-[#387cff] px-4 py-2">
                   {request.pending ? (
                     <div className="flex flex-col items-center gap-2">
                       <div className="flex gap-2">
@@ -145,14 +146,14 @@ export default function ManagerDashboard() {
                           className="p-2 bg-green-400 text-black rounded hover:bg-green-600 hover:text-white transition-all duration-500 ease-in-out"
                           title="Approve Request"
                         >
-                          <CircleCheck size={24} />
+                          <CircleCheck size={28} />
                         </button>
                         <button
                           onClick={() => setDenyingRequestId(request.id)}
                           className="p-2 bg-red-400 text-black rounded hover:bg-red-600 hover:text-white transition-all duration-500 ease-in-out"
                           title="Deny Request"
                         >
-                          <CircleX size={24} />
+                          <CircleX size={28} />
                         </button>
                       </div>
                       {denyingRequestId === request.id && (
@@ -161,14 +162,14 @@ export default function ManagerDashboard() {
                             placeholder="Provide feedback for denial"
                             value={feedback}
                             onChange={(e) => setFeedback(e.target.value)}
-                            className="mt-2 w-full border border-gray-300 rounded p-2"
+                            className="mt-2 w-auto border-2 border-white text-black bg-blue-300 rounded-md p-2 placeholder:text-gray-500"
                           ></textarea>
-                          <button
+                          <SubmitButton
                             onClick={() => handleDeny(request.id)}
-                            className="mt-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+                            className="mt-1 px-4 py-2"
                           >
                             Submit Feedback
-                          </button>
+                          </SubmitButton>
                         </>
                       )}
                     </div>
