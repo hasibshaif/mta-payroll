@@ -6,7 +6,6 @@ import { collection, getDocs, updateDoc, doc } from "firebase/firestore";
 import { CircleCheck, CircleX, X, Check, MessageCircle } from "lucide-react";
 import { format } from "date-fns";
 import Header from "@/components/Header";
-import ShiningButton from "@/components/ShiningButton";
 import DownloadButton from "@/components/ui/download-button";
 
 interface Request {
