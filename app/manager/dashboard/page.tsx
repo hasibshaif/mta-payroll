@@ -6,6 +6,8 @@ import { collection, getDocs, updateDoc, doc } from "firebase/firestore";
 import { CircleCheck, CircleX, X, Check, MessageCircle } from "lucide-react";
 import { format } from "date-fns";
 import Header from "@/components/Header";
+import ShiningButton from "@/components/ShiningButton";
+import DownloadButton from "@/components/ui/download-button";
 
 interface Request {
   id: string;
@@ -197,6 +199,9 @@ export default function ManagerDashboard() {
             ))}
           </tbody>
         </table>
+        <div className="flex justify-end mt-4">
+          <DownloadButton text="Export as .xlsx file" />
+        </div>
       </div>
     </div>
   );
