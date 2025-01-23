@@ -73,9 +73,16 @@ export default function ForgotPassword() {
               Reset Password
             </button>
           </form>
-          {message && <p className="flex justify-center mt-6 text-green-500 text-sm">{message}</p>}
+          {message && (
+            <p className="flex justify-center mt-6 text-green-500 text-sm">
+              {message}
+            </p>
+          )}
           <div className="mt-6 flex justify-center font-bold text-sm">
-            <a href="/auth/login" className="text-blue-400 hover:underline hover:text-blue-600">
+            <a
+              href="/auth/login"
+              className="text-blue-400 hover:underline hover:text-blue-600"
+            >
               Back to login
             </a>
           </div>

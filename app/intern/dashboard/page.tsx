@@ -11,6 +11,7 @@ import ShiningButton from "@/components/ShiningButton";
 import { Timestamp } from "firebase/firestore";
 import Header from "@/components/Header";
 import { Check, X, Clock, MessageCircle } from "lucide-react";
+import { BSCID_INTERN, CURRENT_PAY_PERIOD_DATA, LAST_PAY_PERIOD_DATA } from "@/app/constants";
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 interface Adjustment {
@@ -63,44 +64,21 @@ const getBiweeklyDates = (startDate: Date): Date[] => {
   return dates;
 };
 
-const populateDummyData = (dates: Date[], isCurrentPeriod: boolean): TimeEntry[] => {
-  const lastPayPeriodData = [
-    { in: "8:57 AM", out: "5:03 PM", adjustment: "No" },
-    { in: "9:12 AM", out: "5:17 PM", adjustment: "No" },
-    { in: "10:01 AM", out: "6:04 PM", adjustment: "No" },
-    { in: "9:08 AM", out: "4:58 PM", adjustment: "No" },
-    { in: "9:26 AM", out: "5:25 PM", adjustment: "No" },
-    { in: "10:14 AM", out: "6:09 PM", adjustment: "No" },
-    { in: "9:05 AM", out: "5:02 PM", adjustment: "No" },
-    { in: "9:34 AM", out: "5:38 PM", adjustment: "No" },
-    { in: "10:08 AM", out: "6:12 PM", adjustment: "No" },
-    { in: "8:53 AM", out: "5:06 PM", adjustment: "No" },
-    { in: "9:18 AM", out: "5:23 PM", adjustment: "No" },
-    { in: "10:06 AM", out: "6:11 PM", adjustment: "No" },
-    { in: "8:59 AM", out: "4:56 PM", adjustment: "No" },
-    { in: "9:21 AM", out: "5:35 PM", adjustment: "No" },
-  ];
-
-  const currentPayPeriodData = [
-    { in: "9:02 AM", out: "5:07 PM", adjustment: "No" },
-    { in: "", out: "", adjustment: "Yes" },
-    { in: "10:05 AM", out: "6:08 PM", adjustment: "No" },
-    { in: "9:12 AM", out: "5:14 PM", adjustment: "No" },
-    { in: "", out: "", adjustment: "Yes" },
-    { in: "10:10 AM", out: "6:15 PM", adjustment: "No" },
-    { in: "9:07 AM", out: "5:01 PM", adjustment: "No" },
-    { in: "", out: "", adjustment: "Yes" },
-    { in: "10:09 AM", out: "6:13 PM", adjustment: "No" },
-  ];
-
-  const dummyData = isCurrentPeriod ? currentPayPeriodData : lastPayPeriodData;
+const populateDummyData = (
+  dates: Date[],
+  isCurrentPeriod: boolean
+): TimeEntry[] => {
+  const dummyData = isCurrentPeriod ? CURRENT_PAY_PERIOD_DATA : LAST_PAY_PERIOD_DATA;
 
   return dates.map((date, index) => ({
     date: format(date, "MMMM d, yyyy"),
     in: dummyData[index]?.in || "",
     out: dummyData[index]?.out || "",
     adjustment: dummyData[index]?.adjustment || "",
-    hours: calculateHours(dummyData[index]?.in || "", dummyData[index]?.out || ""),
+    hours: calculateHours(
+      dummyData[index]?.in || "",
+      dummyData[index]?.out || ""
+    ),
   }));
 };
 
@@ -116,20 +94,23 @@ export default function InternDashboard() {
   const router = useRouter();
   const [offset, setOffset] = useState(0);
   const [payPeriodData, setPayPeriodData] = useState<TimeEntry[]>([]);
-  const BSCID = "1234567";
+  const BSCID = BSCID_INTERN;
 
   const currentDate = useMemo(() => new Date(), []);
-  const payPeriodStart = format(addDays(getStartOfPayPeriod(currentDate), offset * 14), "MMMM d, yyyy");
-  const payPeriodEnd = format(addDays(getStartOfPayPeriod(currentDate), offset * 14 + 13), "MMMM d, yyyy");
+  const payPeriodStart = format(
+    addDays(getStartOfPayPeriod(currentDate), offset * 14),
+    "MMMM d, yyyy"
+  );
+  const payPeriodEnd = format(
+    addDays(getStartOfPayPeriod(currentDate), offset * 14 + 13),
+    "MMMM d, yyyy"
+  );
 
   useEffect(() => {
     const initialData = getPayPeriodData(currentDate, offset);
     setPayPeriodData(initialData);
 
-    const q = query(
-      collection(db, "adjustments"),
-      where("bscid", "==", BSCID)
-    );
+    const q = query(collection(db, "adjustments"), where("bscid", "==", BSCID));
 
     const unsubscribe = onSnapshot(q, (snapshot) => {
       const adjustments: AdjustmentMap = {};
@@ -143,19 +124,21 @@ export default function InternDashboard() {
           hours: data.hours,
           managerFeedback: data.managerFeedback || "", // Ensure feedback is included
         };
-      });      
-      
-      setPayPeriodData(prevData =>
-        prevData.map(entry => {
+      });
+
+      setPayPeriodData((prevData) =>
+        prevData.map((entry) => {
           const adjustment = adjustments[entry.date];
           if (adjustment) {
             return {
               ...entry,
               status: adjustment.pending
                 ? "Pending"
-                : (adjustment.approved ? "Approved" : "Denied"),
+                : adjustment.approved
+                ? "Approved"
+                : "Denied",
               hours: adjustment.approved ? adjustment.hours : entry.hours,
-              managerFeedback: adjustment.managerFeedback || "", // Include feedback
+              managerFeedback: adjustment.managerFeedback || "",
             };
           }
           return entry;
@@ -168,8 +151,11 @@ export default function InternDashboard() {
 
   const handleRequestAdjustments = () => {
     const adjustmentDates = payPeriodData
-      .filter(row => row.adjustment === "Yes" && (!row.status || row.status === "Denied"))
-      .map(row => row.date);
+      .filter(
+        (row) =>
+          row.adjustment === "Yes" && (!row.status || row.status === "Denied")
+      )
+      .map((row) => row.date);
 
     const queryParams = new URLSearchParams({
       adjustmentDates: JSON.stringify(adjustmentDates),
@@ -199,7 +185,10 @@ export default function InternDashboard() {
               <h1 className="text-2xl font-bold">
                 Payroll Period: {`${payPeriodStart} - ${payPeriodEnd}`}
               </h1>
-              <AlgoliaWhiteButton onClick={() => setOffset((prev) => Math.min(prev + 1, 0))} disabled={offset === 0}>
+              <AlgoliaWhiteButton
+                onClick={() => setOffset((prev) => Math.min(prev + 1, 0))}
+                disabled={offset === 0}
+              >
                 <ChevronRight size={24} />
               </AlgoliaWhiteButton>
             </div>
@@ -220,9 +209,13 @@ export default function InternDashboard() {
               <th className="border-2 border-[#387cff] px-4 py-2">Date</th>
               <th className="border-2 border-[#387cff] px-4 py-2">In</th>
               <th className="border-2 border-[#387cff] px-4 py-2">Out</th>
-              <th className="border-2 border-[#387cff] px-4 py-2">Needs Adjustment?</th>
+              <th className="border-2 border-[#387cff] px-4 py-2">
+                Needs Adjustment?
+              </th>
               <th className="border-2 border-[#387cff] px-4 py-2">Hours</th>
-              <th className="border-2 border-[#387cff] px-4 py-2">Adjustment Request Status</th>
+              <th className="border-2 border-[#387cff] px-4 py-2">
+                Adjustment Request Status
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -233,35 +226,62 @@ export default function InternDashboard() {
                   index % 2 === 0 ? "bg-[#283245]" : "bg-[#1b2230]"
                 } hover:bg-[#2f4775]`}
               >
-                <td className="border-2 border-[#387cff] px-4 py-2 text-lg">{row.date}</td>
-                <td className="border-2 border-[#387cff] px-4 py-2 text-lg">{row.in}</td>
-                <td className="border-2 border-[#387cff] px-4 py-2 text-lg">{row.out}</td>
-                <td className="border-2 border-[#387cff] px-4 py-2 text-lg">{row.adjustment}</td>
-                <td className="border-2 border-[#387cff] px-4 py-2 text-lg">{row.hours}</td>
+                <td className="border-2 border-[#387cff] px-4 py-2 text-lg">
+                  {row.date}
+                </td>
+                <td className="border-2 border-[#387cff] px-4 py-2 text-lg">
+                  {row.in}
+                </td>
+                <td className="border-2 border-[#387cff] px-4 py-2 text-lg">
+                  {row.out}
+                </td>
+                <td className="border-2 border-[#387cff] px-4 py-2 text-lg">
+                  {row.adjustment}
+                </td>
+                <td className="border-2 border-[#387cff] px-4 py-2 text-lg">
+                  {row.hours}
+                </td>
                 <td className="border-2 border-[#387cff] px-4 py-2">
                   {row.status === "Pending" && (
-                    <div className="flex justify-center items-center text-yellow-200 gap-2 text-lg" title="Pending">
+                    <div
+                      className="flex justify-center items-center text-yellow-200 gap-2 text-lg"
+                      title="Pending"
+                    >
                       <Clock className="h-6 w-6" />
                       <span>Pending</span>
                     </div>
                   )}
                   {row.status === "Approved" && (
-                    <div className="flex justify-center items-center text-green-300 gap-2 text-lg" title="Approved">
-                      <Check className="h-6 w-6"/>
+                    <div
+                      className="flex justify-center items-center text-green-300 gap-2 text-lg"
+                      title="Approved"
+                    >
+                      <Check className="h-6 w-6" />
                       <span>Approved</span>
                     </div>
                   )}
                   {row.status === "Denied" && (
-                    <div className="flex justify-center text-red-300 items-center gap-2 text-lg" title="Denied" >
-                      <X className="h-6 w-6"/>
+                    <div
+                      className="flex justify-center text-red-300 items-center gap-2 text-lg"
+                      title="Denied"
+                    >
+                      <X className="h-6 w-6" />
                       <span>Denied</span>
                     </div>
                   )}
-                  {!row.status && <span title="Not Applicable" className="text-lg">N/A</span>}
+                  {!row.status && (
+                    <span title="Not Applicable" className="text-lg">
+                      N/A
+                    </span>
+                  )}
                   {row.status === "Denied" && row.managerFeedback && (
-                    <div className="flex justify-center align-center text-red-200 items-center gap-1" title="Feedback">
-                      <MessageCircle className="h-4 w-4"/>
-                      <span>Feedback:</span><span>{row.managerFeedback}</span>
+                    <div
+                      className="flex justify-center align-center text-red-200 items-center gap-1"
+                      title="Feedback"
+                    >
+                      <MessageCircle className="h-4 w-4" />
+                      <span>Feedback:</span>
+                      <span>{row.managerFeedback}</span>
                     </div>
                   )}
                 </td>

@@ -8,11 +8,12 @@ import { format } from "date-fns";
 import Header from "@/components/Header";
 import DownloadButton from "@/components/ui/download-button";
 import SubmitButton from "@/components/ui/submit-button";
+import { BSCID_MANAGER } from "@/app/constants";
 
 interface Request {
   id: string;
   bscid: string;
-  date: string; // Converted to string for rendering
+  date: string;
   hours: number;
   justification: string;
   approved: boolean;
@@ -24,7 +25,7 @@ export default function ManagerDashboard() {
   const [requests, setRequests] = useState<Request[]>([]);
   const [denyingRequestId, setDenyingRequestId] = useState<string | null>(null);
   const [feedback, setFeedback] = useState<string>("");
-  const BSCID = "7654321";
+  const BSCID = BSCID_MANAGER;
 
   // Fetch requests from Firestore
   useEffect(() => {
@@ -61,7 +62,9 @@ export default function ManagerDashboard() {
 
       setRequests((prevRequests) =>
         prevRequests.map((request) =>
-          request.id === id ? { ...request, approved: true, pending: false } : request
+          request.id === id
+            ? { ...request, approved: true, pending: false }
+            : request
         )
       );
     } catch (error) {
@@ -86,7 +89,12 @@ export default function ManagerDashboard() {
       setRequests((prevRequests) =>
         prevRequests.map((request) =>
           request.id === id
-            ? { ...request, approved: false, pending: false, managerFeedback: feedback }
+            ? {
+                ...request,
+                approved: false,
+                pending: false,
+                managerFeedback: feedback,
+              }
             : request
         )
       );
@@ -122,7 +130,9 @@ export default function ManagerDashboard() {
               <th className="border-2 border-[#387cff] px-4 py-2">Date</th>
               <th className="border-2 border-[#387cff] px-4 py-2">Hours</th>
               <th className="border-2 border-[#387cff] px-4 py-2">Reason</th>
-              <th className="border-2 border-[#387cff] px-4 py-2">Approve/Deny</th>
+              <th className="border-2 border-[#387cff] px-4 py-2">
+                Approve/Deny
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -133,10 +143,18 @@ export default function ManagerDashboard() {
                   index % 2 === 0 ? "bg-[#283245]" : "bg-[#1b2230]"
                 } hover:bg-[#2f4775]`}
               >
-                <td className="border-2 border-[#387cff] px-4 py-2 text-lg">{request.bscid}</td>
-                <td className="border-2 border-[#387cff] px-4 py-2 text-lg">{request.date}</td>
-                <td className="border-2 border-[#387cff] px-4 py-2 text-lg">{request.hours}</td>
-                <td className="border-2 border-[#387cff] px-4 py-2 text-lg">{request.justification}</td>
+                <td className="border-2 border-[#387cff] px-4 py-2 text-lg">
+                  {request.bscid}
+                </td>
+                <td className="border-2 border-[#387cff] px-4 py-2 text-lg">
+                  {request.date}
+                </td>
+                <td className="border-2 border-[#387cff] px-4 py-2 text-lg">
+                  {request.hours}
+                </td>
+                <td className="border-2 border-[#387cff] px-4 py-2 text-lg">
+                  {request.justification}
+                </td>
                 <td className="border-2 border-[#387cff] px-4 py-2">
                   {request.pending ? (
                     <div className="flex flex-col items-center gap-2">
@@ -176,18 +194,27 @@ export default function ManagerDashboard() {
                   ) : (
                     <div>
                       {request.approved ? (
-                        <div className="flex items-center justify-center text-green-300 gap-2 text-lg" title="Approved">
+                        <div
+                          className="flex items-center justify-center text-green-300 gap-2 text-lg"
+                          title="Approved"
+                        >
                           <Check className="h-6 w-6" />
                           <span>Approved</span>
                         </div>
                       ) : (
-                        <div className="flex items-center justify-center text-red-300 gap-2 text-lg" title="Denied">
+                        <div
+                          className="flex items-center justify-center text-red-300 gap-2 text-lg"
+                          title="Denied"
+                        >
                           <X className="h-6 w-6" />
                           <span>Denied</span>
                         </div>
                       )}
                       {request.managerFeedback && (
-                        <div className="flex items-center justify-center text-red-200 gap-2 mt-1" title="Feedback">
+                        <div
+                          className="flex items-center justify-center text-red-200 gap-2 mt-1"
+                          title="Feedback"
+                        >
                           <MessageCircle className="h-4 w-4" />
                           <span>{request.managerFeedback}</span>
                         </div>
@@ -200,7 +227,10 @@ export default function ManagerDashboard() {
           </tbody>
         </table>
         <div className="flex justify-end mt-4">
-          <DownloadButton text="Export as .xlsx file" />
+          <DownloadButton
+            text="Export as .xlsx file"
+            fileUrl="/documents/Adjusted Hours.xls"
+          />
         </div>
       </div>
     </div>

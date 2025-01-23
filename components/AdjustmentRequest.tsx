@@ -13,7 +13,9 @@ export default function AdjustmentRequest({
 }) {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const adjustmentDates = JSON.parse(searchParams.get("adjustmentDates") || "[]"); // Get adjustment dates from query params
+  const adjustmentDates = JSON.parse(
+    searchParams.get("adjustmentDates") || "[]"
+  ); // Get adjustment dates from query params
 
   const [selectedDate, setSelectedDate] = useState("");
   const [hours, setHours] = useState("");
@@ -49,7 +51,7 @@ export default function AdjustmentRequest({
       />
       <div className="p-8 flex justify-center flex-col items-center">
         <h2 className="text-2xl font-bold mb-4 text-left text-white">
-            Submit an Adjustment Request
+          Submit an Adjustment Request
         </h2>
         <div className="w-full max-w-2xl bg-[#283245] border border-[#0039a6] rounded-lg shadow-lg p-6">
           <form onSubmit={handleRequestSubmit} className="space-y-6">
@@ -87,7 +89,7 @@ export default function AdjustmentRequest({
               <input
                 type="number"
                 id="hours"
-                min='0'
+                min="0"
                 value={hours}
                 onChange={(e) => setHours(e.target.value)}
                 placeholder="Enter hours worked"
@@ -114,7 +116,9 @@ export default function AdjustmentRequest({
             <button
               type="submit"
               className={`w-full py-3 rounded-lg text-lg font-semibold text-white bg-blue-900 hover:bg-blue-800 ${
-                !selectedDate || !hours || !reason ? "opacity-50 cursor-not-allowed" : ""
+                !selectedDate || !hours || !reason
+                  ? "opacity-50 cursor-not-allowed"
+                  : ""
               }`}
               disabled={!selectedDate || !hours || !reason}
             >

@@ -1,10 +1,10 @@
 "use client";
 
-import ShiningButton from '@/components/ShiningButton';
-import Head from 'next/head';
-import { useRouter } from 'next/navigation';
+import ShiningButton from "@/components/ShiningButton";
+import Head from "next/head";
+import { useRouter } from "next/navigation";
 import Header from "@/components/Header";
-import { FlipWords } from '@/components/ui/flip-words';
+import { FlipWords } from "@/components/ui/flip-words";
 
 export default function Home() {
   const router = useRouter();
@@ -13,7 +13,10 @@ export default function Home() {
     <div className="min-h-screen flex flex-col">
       <Head>
         <title>MTA Intern Portal</title>
-        <meta name="description" content="MTA Payment Adjustment Request Portal for Interns" />
+        <meta
+          name="description"
+          content="MTA Payment Adjustment Request Portal for Interns"
+        />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
@@ -52,7 +55,9 @@ export default function Home() {
               duration={1200}
             />
             <div className="flex justify-center space-x-4">
-              <ShiningButton onClick={() => router.push('/auth/login')}>Get Started</ShiningButton>
+              <ShiningButton onClick={() => router.push("/auth/login")}>
+                Get Started
+              </ShiningButton>
             </div>
           </div>
         </main>
@@ -61,13 +66,20 @@ export default function Home() {
         <footer className="bg-gradient-to-r from-[#030c1c] to-[#030f26] text-gray-300 py-2 text-center">
           <div className="max-w-4xl mx-auto">
             <p className="text-sm">
-              &copy; {new Date().getFullYear()} Metropolitan Transportation Authority. All rights reserved.
+              &copy; {new Date().getFullYear()} Metropolitan Transportation
+              Authority. All rights reserved.
             </p>
             <div className="space-x-4 mt-2">
-              <a href="https://new.mta.info/terms-and-conditions" className="hover:underline">
+              <a
+                href="https://new.mta.info/terms-and-conditions"
+                className="hover:underline"
+              >
                 Terms of Service
               </a>
-              <a href="https://new.mta.info/privacy-policy" className="hover:underline">
+              <a
+                href="https://new.mta.info/privacy-policy"
+                className="hover:underline"
+              >
                 Privacy Policy
               </a>
             </div>
