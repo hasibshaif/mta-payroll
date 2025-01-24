@@ -175,14 +175,14 @@ export default function InternDashboard() {
           { href: "/auth/login", label: "Logout" },
         ]}
       />
-      <div className="p-8">
+      <div className="p-4 sm:p-8">
         <div className="flex flex-col gap-2">
-          <div className="flex justify-between items-center">
+          <div className="flex flex-wrap justify-between items-center">
             <div className="flex gap-4 justify-center items-center">
               <AlgoliaWhiteButton onClick={() => setOffset((prev) => prev - 1)}>
                 <ChevronLeft size={24} />
               </AlgoliaWhiteButton>
-              <h1 className="text-2xl font-bold">
+              <h1 className="text-xl sm:text-2xl font-bold text-center">
                 Payroll Period: {`${payPeriodStart} - ${payPeriodEnd}`}
               </h1>
               <AlgoliaWhiteButton
@@ -192,28 +192,28 @@ export default function InternDashboard() {
                 <ChevronRight size={24} />
               </AlgoliaWhiteButton>
             </div>
-            <div>
+            <div className="mt-4 sm:mt-0">
               <ShiningButton onClick={handleRequestAdjustments}>
                 Request Adjustments
               </ShiningButton>
             </div>
           </div>
-          <div className="font-bold mb-2 flex text-xl justify-start">
+          <div className="font-bold mb-2 flex text-base sm:text-xl justify-start">
             BSCID: <span className="italic ml-1">{BSCID}</span>
           </div>
         </div>
 
-        <table className="w-full table-auto text-center border-collapse border-[#0039a6] shadow-lg">
+        <table className="w-full table-auto text-center border-collapse border-[#0039a6] shadow-lg text-sm sm:text-lg">
           <thead>
-            <tr className="bg-[#0039a6] text-white text-xl">
-              <th className="border-2 border-[#387cff] px-4 py-2">Date</th>
-              <th className="border-2 border-[#387cff] px-4 py-2">In</th>
-              <th className="border-2 border-[#387cff] px-4 py-2">Out</th>
-              <th className="border-2 border-[#387cff] px-4 py-2">
+            <tr className="bg-[#0039a6] text-white">
+              <th className="border-2 border-[#387cff] px-2 py-1 sm:px-4 sm:py-2">Date</th>
+              <th className="border-2 border-[#387cff] px-2 py-1 sm:px-4 sm:py-2">In</th>
+              <th className="border-2 border-[#387cff] px-2 py-1 sm:px-4 sm:py-2">Out</th>
+              <th className="border-2 border-[#387cff] px-2 py-1 sm:px-4 sm:py-2">
                 Needs Adjustment?
               </th>
-              <th className="border-2 border-[#387cff] px-4 py-2">Hours</th>
-              <th className="border-2 border-[#387cff] px-4 py-2">
+              <th className="border-2 border-[#387cff] px-2 py-1 sm:px-4 sm:py-2">Hours</th>
+              <th className="border-2 border-[#387cff] px-2 py-1 sm:px-4 sm:py-2">
                 Adjustment Request Status
               </th>
             </tr>
@@ -226,60 +226,58 @@ export default function InternDashboard() {
                   index % 2 === 0 ? "bg-[#283245]" : "bg-[#1b2230]"
                 } hover:bg-[#2f4775]`}
               >
-                <td className="border-2 border-[#387cff] px-4 py-2 text-lg">
+                <td className="border-2 border-[#387cff] px-2 py-1 sm:px-4 sm:py-2">
                   {row.date}
                 </td>
-                <td className="border-2 border-[#387cff] px-4 py-2 text-lg">
+                <td className="border-2 border-[#387cff] px-2 py-1 sm:px-4 sm:py-2">
                   {row.in}
                 </td>
-                <td className="border-2 border-[#387cff] px-4 py-2 text-lg">
+                <td className="border-2 border-[#387cff] px-2 py-1 sm:px-4 sm:py-2">
                   {row.out}
                 </td>
-                <td className="border-2 border-[#387cff] px-4 py-2 text-lg">
+                <td className="border-2 border-[#387cff] px-2 py-1 sm:px-4 sm:py-2">
                   {row.adjustment}
                 </td>
-                <td className="border-2 border-[#387cff] px-4 py-2 text-lg">
+                <td className="border-2 border-[#387cff] px-2 py-1 sm:px-4 sm:py-2">
                   {row.hours}
                 </td>
-                <td className="border-2 border-[#387cff] px-4 py-2">
+                <td className="border-2 border-[#387cff] px-2 py-1 sm:px-4 sm:py-2">
                   {row.status === "Pending" && (
                     <div
-                      className="flex justify-center items-center text-yellow-200 gap-2 text-lg"
+                      className="flex justify-center items-center text-yellow-200 gap-2"
                       title="Pending"
                     >
-                      <Clock className="h-6 w-6" />
+                      <Clock className="h-4 w-4 sm:h-6 sm:w-6" />
                       <span>Pending</span>
                     </div>
                   )}
                   {row.status === "Approved" && (
                     <div
-                      className="flex justify-center items-center text-green-300 gap-2 text-lg"
+                      className="flex justify-center items-center text-green-300 gap-2"
                       title="Approved"
                     >
-                      <Check className="h-6 w-6" />
+                      <Check className="h-4 w-4 sm:h-6 sm:w-6" />
                       <span>Approved</span>
                     </div>
                   )}
                   {row.status === "Denied" && (
                     <div
-                      className="flex justify-center text-red-300 items-center gap-2 text-lg"
+                      className="flex justify-center text-red-300 items-center gap-2"
                       title="Denied"
                     >
-                      <X className="h-6 w-6" />
+                      <X className="h-4 w-4 sm:h-6 sm:w-6" />
                       <span>Denied</span>
                     </div>
                   )}
                   {!row.status && (
-                    <span title="Not Applicable" className="text-lg">
-                      N/A
-                    </span>
+                    <span title="Not Applicable">N/A</span>
                   )}
                   {row.status === "Denied" && row.managerFeedback && (
                     <div
                       className="flex justify-center align-center text-red-200 items-center gap-1"
                       title="Feedback"
                     >
-                      <MessageCircle className="h-4 w-4" />
+                      <MessageCircle className="h-3 w-3 sm:h-4 sm:w-4" />
                       <span>Feedback:</span>
                       <span>{row.managerFeedback}</span>
                     </div>

@@ -116,21 +116,21 @@ export default function ManagerDashboard() {
           { href: "/auth/login", label: "Logout" },
         ]}
       />
-      <div className="p-8">
+      <div className="p-4 sm:p-8">
         <div className="flex flex-col gap-2">
-          <div className="font-bold mb-2 flex text-xl justify-start">
+          <div className="font-bold mb-2 flex text-base sm:text-xl justify-start">
             BSCID: <span className="italic ml-1">{BSCID}</span>
           </div>
         </div>
 
-        <table className="w-full table-auto text-center border-collapse border-[#0039a6] shadow-lg">
+        <table className="w-full table-auto text-center border-collapse border-[#0039a6] shadow-lg text-sm sm:text-lg">
           <thead>
-            <tr className="bg-[#0039a6] text-white text-xl">
-              <th className="border-2 border-[#387cff] px-4 py-2">BSCID</th>
-              <th className="border-2 border-[#387cff] px-4 py-2">Date</th>
-              <th className="border-2 border-[#387cff] px-4 py-2">Hours</th>
-              <th className="border-2 border-[#387cff] px-4 py-2">Reason</th>
-              <th className="border-2 border-[#387cff] px-4 py-2">
+            <tr className="bg-[#0039a6] text-white">
+              <th className="border-2 border-[#387cff] px-2 py-1 sm:px-4 sm:py-2">BSCID</th>
+              <th className="border-2 border-[#387cff] px-2 py-1 sm:px-4 sm:py-2">Date</th>
+              <th className="border-2 border-[#387cff] px-2 py-1 sm:px-4 sm:py-2">Hours</th>
+              <th className="border-2 border-[#387cff] px-2 py-1 sm:px-4 sm:py-2">Reason</th>
+              <th className="border-2 border-[#387cff] px-2 py-1 sm:px-4 sm:py-2">
                 Approve/Deny
               </th>
             </tr>
@@ -143,19 +143,19 @@ export default function ManagerDashboard() {
                   index % 2 === 0 ? "bg-[#283245]" : "bg-[#1b2230]"
                 } hover:bg-[#2f4775]`}
               >
-                <td className="border-2 border-[#387cff] px-4 py-2 text-lg">
+                <td className="border-2 border-[#387cff] px-2 py-1 sm:px-4 sm:py-2">
                   {request.bscid}
                 </td>
-                <td className="border-2 border-[#387cff] px-4 py-2 text-lg">
+                <td className="border-2 border-[#387cff] px-2 py-1 sm:px-4 sm:py-2">
                   {request.date}
                 </td>
-                <td className="border-2 border-[#387cff] px-4 py-2 text-lg">
+                <td className="border-2 border-[#387cff] px-2 py-1 sm:px-4 sm:py-2">
                   {request.hours}
                 </td>
-                <td className="border-2 border-[#387cff] px-4 py-2 text-lg">
+                <td className="border-2 border-[#387cff] px-2 py-1 sm:px-4 sm:py-2">
                   {request.justification}
                 </td>
-                <td className="border-2 border-[#387cff] px-4 py-2">
+                <td className="border-2 border-[#387cff] px-2 py-1 sm:px-4 sm:py-2">
                   {request.pending ? (
                     <div className="flex flex-col items-center gap-2">
                       <div className="flex gap-2">
@@ -164,14 +164,14 @@ export default function ManagerDashboard() {
                           className="p-2 bg-green-400 text-black rounded hover:bg-green-600 hover:text-white transition-all duration-500 ease-in-out"
                           title="Approve Request"
                         >
-                          <CircleCheck size={28} />
+                          <CircleCheck size={20} className="sm:size-28" />
                         </button>
                         <button
                           onClick={() => setDenyingRequestId(request.id)}
                           className="p-2 bg-red-400 text-black rounded hover:bg-red-600 hover:text-white transition-all duration-500 ease-in-out"
                           title="Deny Request"
                         >
-                          <CircleX size={28} />
+                          <CircleX size={20} className="sm:size-28" />
                         </button>
                       </div>
                       {denyingRequestId === request.id && (
@@ -180,7 +180,7 @@ export default function ManagerDashboard() {
                             placeholder="Provide feedback for denial"
                             value={feedback}
                             onChange={(e) => setFeedback(e.target.value)}
-                            className="mt-2 w-auto border-2 border-white text-black bg-blue-300 rounded-md p-2 placeholder:text-gray-500"
+                            className="mt-2 w-full sm:w-auto border-2 border-white text-black bg-blue-300 rounded-md p-2 placeholder:text-gray-500"
                           ></textarea>
                           <SubmitButton
                             onClick={() => handleDeny(request.id)}
@@ -195,18 +195,18 @@ export default function ManagerDashboard() {
                     <div>
                       {request.approved ? (
                         <div
-                          className="flex items-center justify-center text-green-300 gap-2 text-lg"
+                          className="flex items-center justify-center text-green-300 gap-2"
                           title="Approved"
                         >
-                          <Check className="h-6 w-6" />
+                          <Check className="h-4 w-4 sm:h-6 sm:w-6" />
                           <span>Approved</span>
                         </div>
                       ) : (
                         <div
-                          className="flex items-center justify-center text-red-300 gap-2 text-lg"
+                          className="flex items-center justify-center text-red-300 gap-2"
                           title="Denied"
                         >
-                          <X className="h-6 w-6" />
+                          <X className="h-4 w-4 sm:h-6 sm:w-6" />
                           <span>Denied</span>
                         </div>
                       )}
@@ -215,7 +215,7 @@ export default function ManagerDashboard() {
                           className="flex items-center justify-center text-red-200 gap-2 mt-1"
                           title="Feedback"
                         >
-                          <MessageCircle className="h-4 w-4" />
+                          <MessageCircle className="h-3 w-3 sm:h-4 sm:w-4" />
                           <span>{request.managerFeedback}</span>
                         </div>
                       )}
