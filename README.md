@@ -1,36 +1,30 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# MTA Intern Portal
 
-## Getting Started
+## Overview
+The **MTA Intern Portal** is a cutting-edge, web-based platform designed to modernize and simplify the payroll timesheet adjustment process for MTA interns and their managers. By replacing outdated paper-based workflows, the portal enhances operational efficiency, ensures data accuracy, and fosters a more seamless communication flow between interns, managers, and HR departments. With its intuitive design and secure infrastructure, the platform redefines the standard for timesheet management.
 
-First, run the development server:
+## Key Features
+- **Digital Workflow Transformation**: Eliminate cumbersome manual processes by automating the entire timesheet adjustment workflow.
+- **Role-Based Dashboards**: Personalized dashboards for interns and managers, ensuring an optimized user experience for every role.
+- **Real-Time Status Updates**: Stay informed with live tracking of adjustment requests from submission to approval.
+- **Cross-Device Compatibility**: Responsive design for smooth usage on desktops, tablets, and smartphones.
+- **Secure Access**: Leverage a BSC ID-based authentication system to ensure data privacy and secure login.
+- **Built-In Validation**: Automatic checks for data integrity and completeness, minimizing errors.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Technical Stack
+- **Frontend**: Next.js 15.1.5, React 19
+- **Styling**: Tailwind CSS, Framer Motion
+- **Database**: Firebase Firestore
+- **State Management**: React Hooks
+- **UI Components**: Custom components using Lucide React icons
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Impact & Achievements
+- **Process Transformation**: Replaced a time-intensive paper-based system with a fully automated, digital platform.
+- **Increased Efficiency**: Reduced timesheet adjustment processing time by streamlining submissions, approvals, and tracking.
+- **Scalability**: Automated adjustments for hundreds of employees, ensuring accurate payroll processing at scale.
+- **Enhanced Communication**: Improved transparency and responsiveness between interns, managers, and HR.
+- **Cost Savings**: Minimized administrative overhead and resource consumption through digitization.
+- **Employee Satisfaction**: Delivered a user-friendly experience that simplifies payroll processes and ensures timely payments.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## View Deployed Site:
+[MTA Intern Portal](https://mta-payroll.vercel.app/)
